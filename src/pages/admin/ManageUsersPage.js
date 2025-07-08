@@ -1,4 +1,4 @@
-// src/pages/admin/ManageUsersPage.js (Final version with Add/Edit Dialog)
+// src/pages/admin/ManageUsersPage.js (Corrected Code)
 
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,15 +18,13 @@ import {
   InputAdornment,
   Avatar,
   Chip,
-  // === DIALOG IMPORTS ===
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   Grid,
 } from "@material-ui/core";
-// Link is no longer needed for add/edit, but keep it for other potential links
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom"; // <--- THIS LINE IS REMOVED
 import EditIcon from "@material-ui/icons/Edit";
 import BlockIcon from "@material-ui/icons/Block";
 import AddIcon from "@material-ui/icons/Add";
@@ -48,7 +46,6 @@ const colors = {
 };
 
 const useStyles = makeStyles((theme) => ({
-  // ... (All your existing styles remain the same)
   pageContainer: { padding: theme.spacing(3) },
   headerContainer: {
     display: "flex",
@@ -98,8 +95,8 @@ const useStyles = makeStyles((theme) => ({
   statusBanned: { backgroundColor: colors.lightRed, color: colors.red },
 }));
 
-// Dummy data
 const users = [
+  // ... (dummy data remains the same)
   {
     id: 1,
     name: "John Doe",
@@ -136,18 +133,16 @@ const users = [
 
 const ManageUsersPage = () => {
   const classes = useStyles();
-
-  // === NEW STATE FOR DIALOG ===
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState(null); // null for 'add', user object for 'edit'
+  const [editingUser, setEditingUser] = useState(null);
 
   const handleOpenAddDialog = () => {
-    setEditingUser(null); // Clear any previous editing data
+    setEditingUser(null);
     setDialogOpen(true);
   };
 
   const handleOpenEditDialog = (user) => {
-    setEditingUser(user); // Set the user to be edited
+    setEditingUser(user);
     setDialogOpen(true);
   };
 
@@ -156,19 +151,16 @@ const ManageUsersPage = () => {
   };
 
   const handleSaveUser = () => {
-    // Here you would add logic to save the user (API call)
     console.log("Saving user:", editingUser);
     handleCloseDialog();
   };
 
   return (
     <div className={classes.pageContainer}>
-      {/* Page Header */}
       <Box className={classes.headerContainer}>
         <Typography variant="h4" className={classes.pageTitle}>
           Manage Users
         </Typography>
-        {/* === UPDATED BUTTON ONCLICK === */}
         <Button
           onClick={handleOpenAddDialog}
           variant="contained"
@@ -178,10 +170,7 @@ const ManageUsersPage = () => {
           Add New User
         </Button>
       </Box>
-
-      {/* Main Content Card (Table) */}
       <Card className={classes.contentCard}>
-        {/* ... (Search Toolbar remains the same) ... */}
         <Box className={classes.toolbar}>
           <TextField
             fullWidth
@@ -197,8 +186,6 @@ const ManageUsersPage = () => {
             }}
           />
         </Box>
-
-        {/* Users Table */}
         <TableContainer>
           <Table>
             <TableHead className={classes.tableHead}>
@@ -244,7 +231,6 @@ const ManageUsersPage = () => {
                     />
                   </TableCell>
                   <TableCell align="center">
-                    {/* === UPDATED EDIT BUTTON ONCLICK === */}
                     <IconButton
                       size="small"
                       onClick={() => handleOpenEditDialog(user)}
@@ -261,8 +247,6 @@ const ManageUsersPage = () => {
           </Table>
         </TableContainer>
       </Card>
-
-      {/* === ADD/EDIT USER DIALOG (POPUP FORM) === */}
       <Dialog
         open={dialogOpen}
         onClose={handleCloseDialog}
