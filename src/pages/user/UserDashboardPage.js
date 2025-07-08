@@ -1,14 +1,14 @@
-// src/pages/user/UserDashboardPage.js
+// src/pages/user/UserDashboardPage.js (Corrected Code)
 
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Grid,
   Card,
-  CardContent,
+  // CardContent, // <--- REMOVED
   Typography,
   Box,
-  Button,
+  // Button, // <--- REMOVED
   List,
   ListItem,
   ListItemText,
@@ -21,33 +21,26 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
-// Theme colors from your new design
+// ... (Theme colors and useStyles remain the same) ...
 const colors = {
   primary: "#878fba",
   secondary: "#3d2b56",
   textDark: "#3d2b56",
   textMuted: "#6c749d",
   cardBg: "#ffffff",
-  // Status colors
   green: "#28a745",
   lightGreen: "#e7f5ee",
   orange: "#fd7e14",
   lightOrange: "#fef2e7",
 };
-
 const useStyles = makeStyles((theme) => ({
-  pageContainer: {
-    padding: theme.spacing(3),
-  },
+  pageContainer: { padding: theme.spacing(3) },
   welcomeHeader: {
     fontWeight: "bold",
     color: colors.textDark,
     marginBottom: theme.spacing(1),
   },
-  welcomeSubheader: {
-    color: colors.textMuted,
-    marginBottom: theme.spacing(4),
-  },
+  welcomeSubheader: { color: colors.textMuted, marginBottom: theme.spacing(4) },
   statCard: {
     display: "flex",
     alignItems: "center",
@@ -66,14 +59,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-  statValue: {
-    fontWeight: "bold",
-    color: colors.textDark,
-  },
-  statLabel: {
-    color: colors.textMuted,
-    fontSize: "0.9rem",
-  },
+  statValue: { fontWeight: "bold", color: colors.textDark },
+  statLabel: { color: colors.textMuted, fontSize: "0.9rem" },
   contentCard: {
     marginTop: theme.spacing(4),
     padding: theme.spacing(1),
@@ -92,17 +79,13 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "none",
     color: colors.textDark,
   },
-  chip: {
-    borderRadius: "16px",
-    fontWeight: "bold",
-    height: "26px",
-  },
+  chip: { borderRadius: "16px", fontWeight: "bold", height: "26px" },
   statusDelivered: { backgroundColor: colors.lightGreen, color: colors.green },
   statusPending: { backgroundColor: colors.lightOrange, color: colors.orange },
 }));
 
-// Dummy data for a more complete look
 const stats = [
+  // ... (dummy data remains the same) ...
   {
     label: "Pending Orders",
     value: "5",
@@ -124,6 +107,7 @@ const stats = [
 ];
 
 const recentOrders = [
+  // ... (dummy data remains the same) ...
   {
     id: "#ORD-12349",
     date: "Oct 23, 2023",
@@ -150,8 +134,6 @@ const UserDashboardPage = () => {
       <Typography variant="body1" className={classes.welcomeSubheader}>
         Here's a quick overview of your account.
       </Typography>
-
-      {/* Stat Cards */}
       <Grid container spacing={3}>
         {stats.map((stat) => (
           <Grid item xs={12} sm={6} md={4} key={stat.label}>
@@ -174,10 +156,7 @@ const UserDashboardPage = () => {
           </Grid>
         ))}
       </Grid>
-
-      {/* Recent Orders and Quick Links */}
       <Grid container spacing={4}>
-        {/* Recent Orders Section */}
         <Grid item xs={12} md={8}>
           <Card className={classes.contentCard}>
             <Typography variant="h6" className={classes.sectionTitle}>
@@ -204,8 +183,6 @@ const UserDashboardPage = () => {
             </List>
           </Card>
         </Grid>
-
-        {/* Quick Links Section */}
         <Grid item xs={12} md={4}>
           <Card className={classes.contentCard}>
             <Typography variant="h6" className={classes.sectionTitle}>
