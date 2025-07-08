@@ -1,6 +1,6 @@
-// src/pages/user/AddressPage.js
+// src/pages/user/AddressPage.js (Corrected Code)
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react"; // <--- useEffect REMOVED FROM HERE
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
@@ -22,7 +22,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CloseIcon from "@material-ui/icons/Close";
 
-// Theme colors
+// ... (Theme colors and useStyles remain the same) ...
 const colors = {
   primary: "#878fba",
   textDark: "#3d2b56",
@@ -31,7 +31,6 @@ const colors = {
   lightBg: "#f8f9fa",
   cardBg: "#ffffff",
 };
-
 const useStyles = makeStyles((theme) => ({
   pageContainer: { padding: theme.spacing(3) },
   headerContainer: {
@@ -41,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(4),
   },
   pageTitle: { fontWeight: "bold", color: colors.textDark },
-  // [FIX] Card size ke liye height: '100%' hata diya gaya hai
   addressCard: {
     borderRadius: "12px",
     boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
@@ -109,6 +107,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialAddresses = [
+  // ... (dummy data remains the same) ...
   {
     id: 1,
     type: "Home",
@@ -136,7 +135,6 @@ const AddressPage = () => {
   const [currentAddress, setCurrentAddress] = useState(null);
 
   const handleOpenModal = (address = null) => {
-    // Agar address hai to edit mode, nahi to add mode
     setCurrentAddress(
       address || {
         type: "Home",
@@ -156,7 +154,6 @@ const AddressPage = () => {
 
   const handleDeleteAddress = (idToDelete) => {
     setAddresses(addresses.filter((addr) => addr.id !== idToDelete));
-    // Yahan aap API call bhi kar sakte hain delete karne ke liye
   };
 
   const handleInputChange = (e) => {
@@ -167,18 +164,16 @@ const AddressPage = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (currentAddress.id) {
-      // Edit logic
       setAddresses(
         addresses.map((addr) =>
           addr.id === currentAddress.id ? currentAddress : addr
         )
       );
     } else {
-      // Add logic
       setAddresses([
         ...addresses,
         { ...currentAddress, id: Date.now(), default: false },
-      ]); // Using timestamp for unique ID
+      ]);
     }
     handleCloseModal();
   };
@@ -190,8 +185,6 @@ const AddressPage = () => {
           Address Book
         </Typography>
       </Box>
-
-      {/* [FIX] alignItems="stretch" hata diya gaya hai */}
       <Grid container spacing={4}>
         {addresses.map((addr) => (
           <Grid item xs={12} md={6} key={addr.id}>
@@ -243,8 +236,6 @@ const AddressPage = () => {
             </Card>
           </Grid>
         ))}
-
-        {/* Add New Address Card */}
         <Grid item xs={12} md={6}>
           <Card
             className={classes.addAddressCard}
@@ -262,8 +253,6 @@ const AddressPage = () => {
           </Card>
         </Grid>
       </Grid>
-
-      {/* Add/Edit Address Modal */}
       <Modal
         open={openModal}
         onClose={handleCloseModal}
