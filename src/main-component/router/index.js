@@ -1,15 +1,14 @@
-// src/main-component/router/index.js
+// src/main-component/router/index.js (Updated Code)
 
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-// === ROUTE WRAPPERS IMPORT KAREIN ===
+// === ROUTE WRAPPERS ===
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 
-// === PUBLIC PAGE IMPORTS (Unchanged) ===
+// === PAGE IMPORTS ===
 import Homepage from "../HomePage";
-// ...baki saare public page imports...
 import AboutPage from "../AboutPage";
 import ShopPage from "../ShopPage";
 import ProductDetailsPage from "../ProductDetailsPage";
@@ -20,12 +19,12 @@ import ContactPage from "../ContactPage";
 import LoginPage from "../LoginPage";
 import SignUpPage from "../SignUpPage";
 import Blog from "../BlogPage";
+// --- YAHAN BLOGSINGLEPAGE KA IMPORT ADD KAREIN ---
+import BlogSinglePage from "../BlogDetails"; // Maan rahe hain ki file ka naam BlogSinglePage.js hai
 import ForgotPassword from "../ForgotPassword";
-
-// === DASHBOARD IMPORTS (Unchanged) ===
 import AdminLayout from "../../Layout/AdminLayout";
 import UserDashboardLayout from "../../Layout/UserDashboardLayout";
-// ...baki saare dashboard page imports...
+// ... baaki saare imports waise hi rahenge
 import UserDashboardPage from "../../pages/user/UserDashboardPage";
 import MyOrdersPage from "../../pages/user/MyOrdersPage";
 import ProfilePage from "../../pages/user/ProfilePage";
@@ -37,59 +36,86 @@ import Addresspage from "../../pages/user/AddressPage";
 import WishlistPages from "../../pages/user/WishlistPages";
 import OrderDetailPage from "../../pages/user/OrderDetailPage";
 import AddEditProductPage from "../../pages/admin/AddEditProductPage";
+import OtpVerificationPage from "../OtpVerificationPage";
+import Privacypolicy from "../PrivacyPolicy";
+import TermsAndConditions from "../TermsAndCondition";
+import OrderConfirmationPage from "../../pages/OrderConfirmationPage";
+import ScrollToTop from "../../components/ScrollToTop";
+
+import ResetPasswordPage from "../../components/ResetPasswordPage.js";
 
 const AllRoute = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Homepage />} />
-      <Route path="/home" element={<Homepage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/shop" element={<ShopPage />} />
-      <Route path="/product-single/:id" element={<ProductDetailsPage />} />
-      <Route path="/cart" element={<CartPage />} />
-      <Route path="/wishlist" element={<WishlistPage />} />
-      <Route path="/404" element={<ErrorPage />} />
-      <Route path="/contact" element={<ContactPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<SignUpPage />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/blog" element={<Blog />} />
-      <Route path="addedit" element={<AddEditProductPage />} />
-      <Route
-        path="/user/*"
-        element={
-          <PrivateRoute>
-            <UserDashboardLayout />
-          </PrivateRoute>
-        }
-      >
-        {/* UserDashboardLayout ke andar ke saare routes apne aap protected ho jayenge */}
-        <Route path="dashboard" element={<UserDashboardPage />} />
-        <Route path="orders" element={<MyOrdersPage />} />
-        <Route path="profile" element={<ProfilePage />} />
-        <Route path="address" element={<Addresspage />} />
-        <Route path="wishlist" element={<WishlistPages />} />
-        <Route path="orders/:orderId" element={<OrderDetailPage />} />
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/home" element={<Homepage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/product-single/:id" element={<ProductDetailsPage />} />
+        <Route path="/wishlist" element={<WishlistPage />} />
+        <Route path="/404" element={<ErrorPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<SignUpPage />} />
+        <Route path="/verify-otp" element={<OtpVerificationPage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route
+          path="/reset-password/:resetToken"
+          element={<ResetPasswordPage />}
+        />
+        <Route path="/blog" element={<Blog />} />
 
-        {/* ...baki user dashboard routes... */}
-      </Route>
-      <Route
-        path="/admin/*"
-        element={
-          <AdminRoute>
-            <AdminLayout />
-          </AdminRoute>
-        }
-      >
-        {/* AdminLayout ke andar ke saare routes apne aap protected ho jayenge */}
-        <Route path="dashboard" element={<AdminDashboardPage />} />
-        <Route path="products" element={<ManageProductsPage />} />
-        <Route path="orders" element={<ManageOrdersPage />} />
-        <Route path="users" element={<ManageUsersPage />} />
+        {/* --- YAHAN NAYA ROUTE ADD KIYA GAYA HAI --- */}
+        <Route path="/blog-single/:id" element={<BlogSinglePage />} />
 
-        {/* ...baki admin dashboard routes... */}
-      </Route>
-    </Routes>
+        <Route path="/termandcond" element={<TermsAndConditions />} />
+        <Route path="privacypolicy" element={<Privacypolicy />} />
+        <Route
+          path="/order-confirmation/:orderId"
+          element={<OrderConfirmationPage />}
+        />
+
+        {/* --- User Protected Routes --- */}
+        <Route
+          path="/user/*"
+          element={
+            <PrivateRoute>
+              <UserDashboardLayout />
+            </PrivateRoute>
+          }
+        >
+          <Route path="dashboard" element={<UserDashboardPage />} />
+          <Route path="orders" element={<MyOrdersPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="address" element={<Addresspage />} />
+          <Route path="cart" element={<CartPage />} />
+          <Route path="wishlist" element={<WishlistPages />} />
+          <Route path="orders/:orderId" element={<OrderDetailPage />} />
+        </Route>
+
+        {/* --- Admin Protected Routes --- */}
+        <Route
+          path="/admin/*"
+          element={
+            <AdminRoute>
+              <AdminLayout />
+            </AdminRoute>
+          }
+        >
+          <Route path="dashboard" element={<AdminDashboardPage />} />
+          <Route path="products" element={<ManageProductsPage />} />
+          <Route path="orders" element={<ManageOrdersPage />} />
+          <Route path="users" element={<ManageUsersPage />} />
+          <Route path="products/add" element={<AddEditProductPage />} />
+          <Route
+            path="products/edit/:productId"
+            element={<AddEditProductPage />}
+          />
+        </Route>
+      </Routes>
+    </>
   );
 };
 
