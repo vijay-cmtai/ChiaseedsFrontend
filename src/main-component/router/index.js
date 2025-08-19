@@ -36,7 +36,6 @@ import Addresspage from "../../pages/user/AddressPage";
 import WishlistPages from "../../pages/user/WishlistPages";
 import OrderDetailPage from "../../pages/user/OrderDetailPage";
 import AddEditProductPage from "../../pages/admin/AddEditProductPage";
-import OtpVerificationPage from "../OtpVerificationPage";
 import Privacypolicy from "../PrivacyPolicy";
 import TermsAndConditions from "../TermsAndCondition";
 import OrderConfirmationPage from "../../pages/OrderConfirmationPage";
